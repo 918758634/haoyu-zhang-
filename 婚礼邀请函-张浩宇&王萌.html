@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张浩宇 & 王萌 - 我们的婚礼</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #FFB7C5;
+    --secondary: #FFF0F5;
+    --accent: #FF91A4;
+    --text: #4A3728;
+    --light: #FFFAFA;
+    --gold: #D4AF37;
+}
+
+body {
+    font-family: 'Noto Serif SC', 'Playfair Display', serif;
+    background: var(--light);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* 樱花飘落动画 */
+.sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.sakura {
+    position: absolute;
+    opacity: 0;
+    animation: sakura-fall linear infinite;
+    font-size: 20px;
+    text-shadow: 0 2px 4px rgba(255,183,197,0.5);
+    top: -50px;
+}
+
+@keyframes sakura-fall {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    5% { opacity: 0; }
+    10% { opacity: 0.9; }
+    50% {
+        transform: translateY(50vh) translateX(60px) rotate(360deg);
+    }
+    90% { opacity: 0.8; }
+    100% {
+        transform: translateY(110vh) translateX(-40px) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* 线条小狗图片装饰 */
+.dog-decoration {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+    width: 110px;
+    height: 110px;
+    animation: dog-float 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(255,183,197,0.4));
+}
+
+@keyframes dog-float {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-15px) rotate(3deg); }
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(135deg, #FFFAFA 0%, #FFF0F5 50%, #FFE4E9 100%);
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFB7C5' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+}
+
+.ampersand {
+    font-size: 8rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--primary);
+    line-height: 1;
+    animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.names {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+.name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.date {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin: 2rem 0;
+    padding: 1rem 3rem;
+    border-top: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    cursor: pointer;
+}
+
+.scroll-down svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--primary);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+.section {
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+}
+
+.countdown-section {
+    background: linear-gradient(135deg, #4A3728 0%, #6B4F3A 100%);
+    color: var(--light);
+}
+
+.countdown-section .section-title {
+    color: var(--light);
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.countdown-item {
+    text-align: center;
+    padding: 1.5rem;
+    min-width: 100px;
+}
+
+.countdown-number {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    color: var(--secondary);
+}
+
+.story-section {
+    background: var(--light);
+}
+
+.story-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 2;
+    font-size: 1.1rem;
+}
+
+.story-paragraph {
+    margin-bottom: 2rem;
+    text-align: justify;
+    text-indent: 2em;
+}
+
+.events-section {
+    background: var(--secondary);
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.event-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.event-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--primary);
+}
+
+.event-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.event-time {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.event-location {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.event-address {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ddd;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* 画廊部分 */
+.gallery-section {
+    background: var(--light);
+    overflow: hidden;
+    padding: 6rem 2rem;
+}
+
+/* 画廊网格布局 */
+.gallery {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* 单个图片卡片 */
+.gallery-card {
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(255,183,197,0.25);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 12px;
+    background: #FFF5F7;
+    aspect-ratio: 1;
+}
+
+.gallery-card:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 12px 35px rgba(255,183,197,0.35);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .gallery-card {
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+}
+
+.rsvp-section {
+    background: linear-gradient(135deg, #4A3728 0%, #6B4F3A 100%);
+    color: var(--light);
+}
+
+.rsvp-section .section-title {
+    color: var(--light);
+}
+
+.rsvp-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: var(--light);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.3);
+}
+
+.form-group select option {
+    background: var(--text);
+    color: var(--light);
+}
+
+.submit-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    text-transform: uppercase;
+}
+
+.submit-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+}
+
+.footer {
+    background: var(--text);
+    color: var(--light);
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-names {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.footer-date {
+    font-size: 1rem;
+    color: var(--primary);
+    letter-spacing: 0.2em;
+}
+
+.footer-heart {
+    font-size: 2rem;
+    margin: 1rem 0;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+}
+
+.music-btn {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+}
+
+.music-btn.playing {
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.music-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .names {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .name {
+        font-size: 2.2rem;
+    }
+    .ampersand {
+        font-size: 5rem;
+    }
+    .date {
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
+    }
+    .countdown-number {
+        font-size: 2.5rem;
+    }
+    .countdown-item {
+        min-width: 70px;
+        padding: 1rem;
+    }
+    .section {
+        padding: 4rem 1.5rem;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .music-btn {
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .name {
+        font-size: 1.8rem;
+    }
+    .ampersand {
+        font-size: 4rem;
+    }
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    .countdown {
+        gap: 1rem;
+    }
+    .countdown-number {
+        font-size: 2rem;
+    }
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="sakura-container" id="sakura"></div>
+    
+    <!-- 线条小狗图片装饰 -->
+    <div class="dog-decoration">
+        <img src="dog1.jpeg" alt="线条小狗">
+    </div>
+
+    <button class="music-btn" id="musicBtn" title="播放音乐">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </button>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <p class="subtitle">我们结婚啦</p>
+            <div class="names">
+                <h1 class="name">张浩宇</h1>
+            </div>
+            <div class="ampersand">&</div>
+            <div class="names">
+                <h1 class="name">王萌</h1>
+            </div>
+            <p class="date">2026年6月6日 · 农历四月二十</p>
+            <p class="subtitle">诚挚邀请您见证我们的幸福时刻</p>
+        </div>
+        <div class="scroll-down" onclick="scrollToSection('story')">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </div>
+    </section>
+
+    <section class="section countdown-section reveal">
+        <h2 class="section-title">婚礼倒计时</h2>
+        <p class="section-subtitle">Countdown to Our Big Day</p>
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">天</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">时</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">分</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">秒</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section story-section reveal" id="story">
+        <h2 class="section-title">我们的故事</h2>
+        <p class="section-subtitle">Our Love Story</p>
+        <div class="story-content">
+            <p class="story-paragraph">那是一个阳光明媚的春日，我们在一次朋友聚会上相遇。命运的安排让两个陌生人的生命轨迹开始交汇。</p>
+            <p class="story-paragraph">从相识、相知到相爱，我们一起经历了无数个美好的瞬间。一起看日出日落，一起品味生活的酸甜苦辣，在彼此的陪伴中成长。</p>
+            <p class="story-paragraph">经过漫长而甜蜜的恋爱时光，我们终于决定携手走过人生的下一段旅程。愿有岁月可回首，且以深情共白头。</p>
+        </div>
+    </section>
+
+    <section class="section events-section reveal">
+        <h2 class="section-title">婚礼流程</h2>
+        <p class="section-subtitle">Wedding Schedule</p>
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <h3 class="event-title">迎娶仪式</h3>
+                <p class="event-time">上午 08:00 - 10:00</p>
+                <p class="event-location">新郎家 → 新娘家</p>
+                <p class="event-address">接亲、堵门游戏、敬茶仪式</p>
+            </div>
+            <div class="event-card">
+                <div class="event-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.83L19.13 19H4.87L12 5.83zM11 16h2v2h-2v-2zm0-6h2v4h-2v-4z"/></svg>
+                </div>
+                <h3 class="event-title">婚礼典礼</h3>
+                <p class="event-time">中午 11:30 - 12:30</p>
+                <p class="event-location">国际大酒店 · 崇和厅</p>
+                <p class="event-address">张家口市经开区长城西大街8号</p>
+            </div>
+            <div class="event-card">
+                <div class="event-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                </div>
+                <h3 class="event-title">喜宴开始</h3>
+                <p class="event-time">中午 12:30 - 14:30</p>
+                <p class="event-location">国际大酒店 · 崇和厅</p>
+                <p class="event-address">品尝美食、分享喜悦、接受祝福</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery-section reveal">
+        <h2 class="section-title">甜蜜瞬间</h2>
+        <p class="section-subtitle">Our Sweet Memories</p>
+        <div class="gallery">
+            <!-- dog1 6张图 -->
+            <div class="gallery-card"><img src="dog_parts/dog1_0_0.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog1_0_1.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog1_0_2.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog1_1_0.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog1_1_1.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog1_1_2.png" alt="线条小狗"></div>
+            <!-- dog2 9张图 -->
+            <div class="gallery-card"><img src="dog_parts/dog2_0_0.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_0_1.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_0_2.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_1_0.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_1_1.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_1_2.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_2_0.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_2_1.png" alt="线条小狗"></div>
+            <div class="gallery-card"><img src="dog_parts/dog2_2_2.png" alt="线条小狗"></div>
+        </div>
+    </section>
+
+    <section class="section rsvp-section reveal">
+        <h2 class="section-title">出席回执</h2>
+        <p class="section-subtitle">RSVP</p>
+        <form class="rsvp-form" id="rsvpForm">
+            <div class="form-group">
+                <label for="name">您的姓名</label>
+                <input type="text" id="name" placeholder="请输入您的姓名" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">联系电话</label>
+                <input type="tel" id="phone" placeholder="请输入您的手机号" required>
+            </div>
+            <div class="form-group">
+                <label for="attendance">是否出席</label>
+                <select id="attendance" required>
+                    <option value="">请选择</option>
+                    <option value="yes">欣然赴约 🎉</option>
+                    <option value="no">遗憾缺席 😢</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="guests">随行人数</label>
+                <select id="guests">
+                    <option value="1">1人</option>
+                    <option value="2">2人</option>
+                    <option value="3">3人</option>
+                    <option value="4">4人</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">祝福留言</label>
+                <textarea id="message" rows="4" placeholder="写下您对新人的祝福..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">提交回执</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-heart">💕 🐾 💕</div>
+        <p class="footer-names">张浩宇 & 王萌</p>
+        <p class="footer-date">2026.06.06</p>
+        <p style="margin-top: 1.5rem; opacity: 0.7; font-size: 0.9rem;">期待与您共度这美好时刻</p>
+    </footer>
+
+    <script>
+function createSakura() {
+    const sakuraContainer = document.getElementById('sakura');
+    const sakuraCount = 40;
+    
+    for (let i = 0; i < sakuraCount; i++) {
+        const sakura = document.createElement('div');
+        sakura.className = 'sakura';
+        sakura.style.left = Math.random() * 100 + '%';
+        sakura.textContent = '🌸';
+        
+        const duration = Math.random() * 12 + 8;
+        sakura.style.animationDuration = duration + 's';
+        sakura.style.animationDelay = (Math.random() * 25) + 's';
+        
+        const size = Math.random() * 16 + 12;
+        sakura.style.fontSize = size + 'px';
+        sakura.style.opacity = 0.5 + Math.random() * 0.5;
+        
+        sakuraContainer.appendChild(sakura);
+    }
+}
+
+function updateCountdown() {
+    const weddingDate = new Date('2026-06-06T11:30:00').getTime();
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+}
+
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+function revealOnScroll() {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('active');
+        }
+    });
+}
+
+let isPlaying = false;
+document.getElementById('musicBtn').addEventListener('click', function() {
+    this.classList.toggle('playing');
+    isPlaying = !isPlaying;
+    
+    if (isPlaying) {
+        this.title = '暂停音乐';
+    } else {
+        this.title = '播放音乐';
+    }
+});
+
+document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const attendance = document.getElementById('attendance').value;
+    
+    if (attendance === 'yes') {
+        alert(`感谢 ${name} 的回执！我们期待在婚礼上见到您！💕🐾`);
+    } else {
+        alert(`感谢 ${name} 的回执！虽然无法到场，但您的祝福我们已收到！💕🐾`);
+    }
+    
+    this.reset();
+});
+
+createSakura();
+updateCountdown();
+setInterval(updateCountdown, 1000);
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+    </script>
+</body>
+</html>
